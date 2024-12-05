@@ -47,11 +47,46 @@ const businessModelsData = businessModels as BusinessModelsData;
 const teamArchetypesData = teamArchetypes as TeamArchetypesData;
 
 const formSchema = z.object({
-  sector: z.string().min(1, 'Sector is required'),
-  nation: z.string().min(1, 'Nation is required'),
-  aiDisruptionPattern: z.string().min(1, 'AI Disruption Pattern is required'),
-  businessModel: z.string().min(1, 'Business Model is required'),
-  teamArchetype: z.string().min(1, 'Team Archetype is required'),
+  sector: z.string().min(1, 'Sector is required').refine((val) => {
+    try {
+      const parsed = JSON.parse(val);
+      return parsed && typeof parsed === 'object' && 'id' in parsed;
+    } catch {
+      return false;
+    }
+  }, 'Invalid sector data'),
+  nation: z.string().min(1, 'Nation is required').refine((val) => {
+    try {
+      const parsed = JSON.parse(val);
+      return parsed && typeof parsed === 'object' && 'id' in parsed;
+    } catch {
+      return false;
+    }
+  }, 'Invalid nation data'),
+  aiDisruptionPattern: z.string().min(1, 'AI Disruption Pattern is required').refine((val) => {
+    try {
+      const parsed = JSON.parse(val);
+      return parsed && typeof parsed === 'object' && 'id' in parsed;
+    } catch {
+      return false;
+    }
+  }, 'Invalid AI disruption pattern data'),
+  businessModel: z.string().min(1, 'Business Model is required').refine((val) => {
+    try {
+      const parsed = JSON.parse(val);
+      return parsed && typeof parsed === 'object' && 'id' in parsed;
+    } catch {
+      return false;
+    }
+  }, 'Invalid business model data'),
+  teamArchetype: z.string().min(1, 'Team Archetype is required').refine((val) => {
+    try {
+      const parsed = JSON.parse(val);
+      return parsed && typeof parsed === 'object' && 'id' in parsed;
+    } catch {
+      return false;
+    }
+  }, 'Invalid team archetype data'),
   startupPitch: z.string().min(10, 'Startup pitch must be at least 10 characters'),
 });
 
@@ -93,7 +128,15 @@ export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFo
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Sector</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select 
+                  onValueChange={(value) => {
+                    const selectedSector = sectorsData.sectors.find(s => s.id === value);
+                    if (selectedSector) {
+                      field.onChange(JSON.stringify(selectedSector));
+                    }
+                  }} 
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a sector" />
@@ -118,7 +161,15 @@ export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFo
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Nation</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select 
+                  onValueChange={(value) => {
+                    const selectedNation = nationsData.nations.find(n => n.id === value);
+                    if (selectedNation) {
+                      field.onChange(JSON.stringify(selectedNation));
+                    }
+                  }} 
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a nation" />
@@ -143,7 +194,15 @@ export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFo
             render={({ field }) => (
               <FormItem>
                 <FormLabel>AI Disruption Pattern</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select 
+                  onValueChange={(value) => {
+                    const selectedPattern = disruptionsData.aiDisruptionPatterns.find(p => p.id.toString() === value);
+                    if (selectedPattern) {
+                      field.onChange(JSON.stringify(selectedPattern));
+                    }
+                  }} 
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a disruption pattern" />
@@ -168,7 +227,15 @@ export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFo
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Business Model</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select 
+                  onValueChange={(value) => {
+                    const selectedModel = businessModelsData.businessModels.find(m => m.id.toString() === value);
+                    if (selectedModel) {
+                      field.onChange(JSON.stringify(selectedModel));
+                    }
+                  }} 
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a business model" />
@@ -193,7 +260,15 @@ export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFo
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Team Archetype</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select 
+                  onValueChange={(value) => {
+                    const selectedArchetype = teamArchetypesData.startupTeamArchetypes.find(a => a.id.toString() === value);
+                    if (selectedArchetype) {
+                      field.onChange(JSON.stringify(selectedArchetype));
+                    }
+                  }} 
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a team archetype" />
