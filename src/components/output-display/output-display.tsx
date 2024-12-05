@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { Card } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { OutputDisplayProps, YearlyProgress, SimulationMetrics } from "./types";
 
 function getGrowthProbability(metrics: SimulationMetrics): number {

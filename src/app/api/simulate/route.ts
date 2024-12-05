@@ -38,11 +38,6 @@ interface YearlyProgress {
   analysis: SimulationAnalysis;
 }
 
-interface SimulationResponse {
-  success: boolean;
-  yearlyProgress: YearlyProgress[];
-}
-
 // Initialize OpenAI client
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -121,7 +116,7 @@ export const config = {
 };
 
 // Add debug logging function
-function debugLog(message: string, data?: any) {
+function debugLog(message: string, data?: unknown) {
   const timestamp = new Date().toISOString();
   console.log(`[${timestamp}] [Simulation API] ${message}`, data ? JSON.stringify(data, null, 2) : '');
 }

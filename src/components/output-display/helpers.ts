@@ -1,4 +1,4 @@
-import { SimulationResult, YearlyProgress, SimulationMetrics } from "./types";
+import { YearlyProgress, SimulationMetrics } from "./types";
 
 export function calculateAverageKPIs(yearlyResults: YearlyProgress[]): SimulationMetrics {
   const totalYears = yearlyResults.length;
