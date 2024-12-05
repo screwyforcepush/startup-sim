@@ -19,6 +19,9 @@ A startup simulation tool designed for Saudi government leaders to rapidly evalu
 - **Form Handling:**
   - [React Hook Form](https://react-hook-form.com)
   - [Zod](https://zod.dev)
+- **AI Integration:**
+  - [OpenAI API](https://platform.openai.com)
+  - [OpenAI Node SDK](https://github.com/openai/openai-node)
 - **Language:** [TypeScript](https://www.typescriptlang.org)
 
 ## Getting Started
@@ -29,7 +32,16 @@ A startup simulation tool designed for Saudi government leaders to rapidly evalu
 npm install
 ```
 
-2. Run the development server:
+2. Set up environment variables:
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```env
+OPENAI_API_KEY=your_api_key_here
+OPENAI_MODEL=gpt-4o
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
@@ -52,7 +64,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ├── src
 │   ├── app
 │   │   ├── api
-│   │   │   └── simulate     # Simulation API endpoints
+│   │   │   └── simulate     # Simulation API endpoints with OpenAI integration
 │   │   ├── fonts
 │   │   ├── globals.css
 │   │   ├── layout.tsx
@@ -85,6 +97,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Form validation with Zod and React Hook Form
 - Responsive design with Tailwind CSS
 - Component library built on Shadcn UI and Radix UI primitives
+- AI-powered simulation using OpenAI GPT-4
 - Simulation data management with JSON files
 - Clean and intuitive user interface
 - RESTful API endpoints for simulation processing
@@ -101,6 +114,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Use Shadcn UI components for consistent design
 - Implement proper form validation and error handling
 - Follow modern React patterns and best practices
+- Keep API keys and sensitive data in environment variables
 
 ## Documentation
 
@@ -115,3 +129,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [Shadcn UI Documentation](https://ui.shadcn.com)
 - [React Hook Form Documentation](https://react-hook-form.com/docs)
 - [Zod Documentation](https://zod.dev)
+- [OpenAI API Documentation](https://platform.openai.com/docs)
