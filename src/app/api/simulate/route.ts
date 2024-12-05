@@ -148,7 +148,29 @@ export async function POST(request: Request) {
                     metrics.viability
                 );
                 const diceRoll = Math.random() * minMetric;
-                if (diceRoll < 20) {
+                if (diceRoll < 10) {
+                    // Kill simulation
+                    const failureResult = {
+                        year,
+                        metrics: { 
+                            feasibility: 0, 
+                            desirability: 0, 
+                            viability: 0 
+                        },
+                        analysis: {
+                            milestones: ["Startup failed", "Operations ceased"],
+                            challenges: ["Insurmountable market conditions", "Complete business failure"],
+                            recommendations: ["Consider pivoting to a new venture", "Learn from failure points", "Conduct post-mortem analysis"],
+                            revenue: 0,
+                            marketShare: 0,
+                            customerBase: 0
+                        }
+                    };
+                    await writer.write(encoder.encode(JSON.stringify(failureResult) + '\n---\n'));
+                    await writer.write(encoder.encode('END\n'));
+                    await writer.close();
+                    return;
+                } else if (diceRoll < 30) {
                     persona = 'You are a veteran investor who has witnessed the dot-com crash, 2008 crisis, and countless startup failures, and approach each analysis with extreme caution about market challenges.';
                     trajectory = 'fatal';
                 } else if (diceRoll < 50) {
