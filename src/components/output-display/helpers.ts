@@ -1,12 +1,12 @@
-import { SimulationResult, YearlyMetrics } from "./types";
+import { SimulationResult, YearlyProgress, SimulationMetrics } from "./types";
 
-export function calculateAverageKPIs(yearlyResults: YearlyMetrics[]) {
+export function calculateAverageKPIs(yearlyResults: YearlyProgress[]): SimulationMetrics {
   const totalYears = yearlyResults.length;
   const totals = yearlyResults.reduce(
     (acc, year) => ({
-      feasibility: acc.feasibility + year.kpis.feasibility,
-      desirability: acc.desirability + year.kpis.desirability,
-      viability: acc.viability + year.kpis.viability,
+      feasibility: acc.feasibility + year.metrics.feasibility,
+      desirability: acc.desirability + year.metrics.desirability,
+      viability: acc.viability + year.metrics.viability,
     }),
     { feasibility: 0, desirability: 0, viability: 0 }
   );
@@ -50,4 +50,30 @@ export function getStatusColor(value: number): string {
   if (value >= 80) return 'text-green-500';
   if (value >= 60) return 'text-yellow-500';
   return 'text-red-500';
+}
+
+export function processYearlyResult(yearData: YearlyProgress): YearlyProgress {
+  // Ensure all required fields are present with defaults if needed
+  return {
+    year: yearData.year,
+    metrics: {
+      feasibility: yearData.metrics.feasibility,
+      desirability: yearData.metrics.desirability,
+      viability: yearData.metrics.viability,
+    },
+    analysis: {
+      revenue: yearData.analysis.revenue,
+      marketShare: yearData.analysis.marketShare ?? 0,
+      customerBase: yearData.analysis.customerBase ?? 0,
+      milestones: yearData.analysis.milestones,
+      challenges: yearData.analysis.challenges,
+      recommendations: yearData.analysis.recommendations,
+    }
+  };
+}
+
+export function calculateOverallScore(metrics: SimulationMetrics): number {
+  return Math.round(
+    (metrics.feasibility + metrics.desirability + metrics.viability) / 3
+  );
 } 

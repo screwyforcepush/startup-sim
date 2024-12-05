@@ -34,6 +34,7 @@
 │   │   │   ├── kpi-chart.tsx         # KPI visualization component
 │   │   │   ├── helpers.ts            # Helper functions for output processing
 │   │   │   └── types.ts              # TypeScript interfaces for output data
+│   │   ├── providers.tsx             # Global providers setup including Redux store provider
 │   │   └── ui                        # Shared UI components
 │   │       ├── button.tsx            # npx shadcn@latest add button
 │   │       ├── modal.tsx             # npx shadcn@latest add modal
@@ -58,7 +59,7 @@
 
 ### `src/app`
 
-- **`api/simulate/route.ts`**: Server-side API route handling simulation requests. Implements the backend logic to interact with the OpenAI GPT-4 API for simulating each year.
+- **`api/simulate/route.ts`**: Server-side API route handling simulation requests. Implements streaming backend logic using TransformStream for year-by-year data delivery. Manages OpenAI API interactions with proper error handling and logging.
 
 - **`layout.tsx`**: Defines the root layout of the application, including global navigation or footer components if needed.
 
@@ -66,16 +67,18 @@
 
 ### `src/components`
 
+- **`providers.tsx`**: Global providers setup including Redux store provider.
+
 - **`input-interface`**: Contains components related to the input form.
-  - **`input-form.tsx`**: Main component rendering the input form using Shadcn UI components.
-  - **`helpers.ts`**: Helper functions for input validation and processing.
-  - **`types.ts`**: TypeScript interfaces defining the shape of input data.
+  - **`input-form.tsx`**: Main component rendering the input form using Shadcn UI components with proper form validation and submission handling.
+  - **`helpers.ts`**: Helper functions for input validation, processing, and type conversion.
+  - **`types.ts`**: TypeScript interfaces defining the shape of input data and form state.
 
 - **`output-display`**: Contains components for displaying simulation results.
-  - **`output-display.tsx`**: Main component for rendering simulation outputs, including year-by-year progression and KPIs.
-  - **`kpi-chart.tsx`**: Uses Tremor or Recharts to visualize KPIs and metrics.
-  - **`helpers.ts`**: Helper functions for processing output data.
-  - **`types.ts`**: TypeScript interfaces for output data structures.
+  - **`output-display.tsx`**: Main component for rendering simulation outputs, handling streaming data updates, and managing progressive UI updates.
+  - **`kpi-chart.tsx`**: Uses Tremor or Recharts to visualize KPIs and metrics with real-time updates.
+  - **`helpers.ts`**: Helper functions for processing output data, including stream transformation and KPI calculations.
+  - **`types.ts`**: TypeScript interfaces for output data structures including SimulationResult and YearlyProgress.
 
 - **`ui`**: Shared UI components built with Shadcn UI and Tailwind CSS.
   - **`button.tsx`**, **`modal.tsx`**, etc.: Reusable UI components following the design system.
@@ -128,5 +131,37 @@
 - **Accessibility**: UI components adhere to accessibility standards, ensuring the tool is usable by all users.
 
 - **Error Handling**: Robust error handling and validation are implemented, especially in user inputs and API communications.
+
+## Data Flow Architecture
+
+- **Streaming Pipeline**:
+  - Backend uses TransformStream for efficient data delivery
+  - Frontend implements progressive rendering
+  - Year-by-year data processing with proper error handling
+
+- **Type System**:
+  - Comprehensive interfaces for simulation data
+  - Stream-specific type definitions
+  - Proper type guards and validation
+
+- **State Management**:
+  - Redux store for global state
+  - Local state for streaming updates
+  - Proper error and loading states
+
+## Performance Considerations
+
+- **Streaming Optimizations**:
+  - Chunked data transfer
+  - Progressive UI updates
+  - Proper cleanup of stream resources
+
+## Error Handling
+
+- **Comprehensive Strategy**:
+  - API-level error handling
+  - Stream interruption handling
+  - UI error boundaries
+  - Proper error messages and recovery
 
 By following this structured approach, the project will be well-organized, maintainable, and scalable, aligning with both the technical requirements and the specified conventions.

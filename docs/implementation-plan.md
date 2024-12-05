@@ -146,7 +146,7 @@
 
 ### **7.1 Modify Backend to Stream Results**
 
-- **Action**: Implement server-sent events (SSE) or websockets in `route.ts` to stream year-by-year data.
+- **Action**: Implement server-sent events (SSE) or websockets in `route.ts` to stream year-by-year data. each year will be a separate OpenAI call.
 - **Verification**: Console log each year's data as it's sent.
 
 ### **7.2 Update Frontend to Receive Stream**

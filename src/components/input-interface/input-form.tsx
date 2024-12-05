@@ -77,22 +77,6 @@ export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFo
       dispatch(startSimulation());
 
       await propOnSubmit(formattedData);
-
-      const response = await fetch('/api/simulate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formattedData),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to start simulation');
-      }
-
-      const simulationResponse = await response.json();
-      // Process the response in the parent component
     } catch (error) {
       console.error('Simulation error:', error);
       // TODO: Add error handling UI feedback

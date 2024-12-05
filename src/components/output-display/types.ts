@@ -1,37 +1,37 @@
-export interface KPIMetrics {
+import type { SimulationInput } from '@/components/input-interface/types';
+
+export interface SimulationMetrics {
   feasibility: number;
   desirability: number;
   viability: number;
 }
 
-export interface YearlyMetrics {
-  year: number;
+export interface SimulationAnalysis {
+  milestones: string[];
+  challenges: string[];
+  recommendations: string[];
   revenue: number;
   marketShare: number;
   customerBase: number;
-  kpis: KPIMetrics;
-  milestones: string[];
-  challenges: string[];
+}
+
+export interface YearlyProgress {
+  year: number;
+  metrics: SimulationMetrics;
+  analysis: SimulationAnalysis;
 }
 
 export interface SimulationResult {
   id: string;
-  inputParameters: {
-    sector: string;
-    nation: string;
-    aiDisruptionPattern: string;
-    businessModel: string;
-    teamArchetype: string;
-    pitch: string;
-  };
-  yearlyResults: YearlyMetrics[];
-  recommendations: string[];
+  inputParameters: SimulationInput;
+  yearlyResults: YearlyProgress[];
   overallScore: number;
   timestamp: string;
 }
 
 export interface OutputDisplayProps {
-  result: SimulationResult | null;
+  simulationId: string;
+  simulationData?: SimulationInput;
   isLoading: boolean;
   error?: string;
 } 

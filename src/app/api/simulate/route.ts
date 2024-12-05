@@ -69,6 +69,8 @@ Also include:
 - Major challenges faced
 - Strategic recommendations
 - Revenue projections
+- Market share percentage
+- Customer base size
 
 Format your response as JSON with the following structure:
 {
@@ -81,9 +83,18 @@ Format your response as JSON with the following structure:
     "milestones": string[],
     "challenges": string[],
     "recommendations": string[],
-    "revenue": number
+    "revenue": number,
+    "marketShare": number,
+    "customerBase": number
   }
-}`;
+}
+
+Consider the following for year ${year}:
+- Growth should compound based on previous success
+- Early adopter to early majority transition
+- Market dynamics and competition
+- Team capability development
+- Technology adoption curve`;
 };
 
 // Disable body parser size limit for streaming
@@ -95,46 +106,109 @@ export const config = {
   }
 };
 
+// Add debug logging function
+function debugLog(message: string, data?: any) {
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] [Simulation API] ${message}`, data ? JSON.stringify(data, null, 2) : '');
+}
+
 // POST handler for simulation requests
 export async function POST(request: Request) {
+  const encoder = new TextEncoder();
+  
   try {
+    debugLog('Received simulation request');
+    
     // Parse and validate the request body
     const body = await request.json();
     const validatedInput = simulationInputSchema.parse(body);
+    debugLog('Validated input:', validatedInput);
 
-    // Simulate first year
-    const completion = await openai.chat.completions.create({
-      model: process.env.OPENAI_MODEL || 'gpt-4-1106-preview',
-      messages: [
-        {
-          role: 'system',
-          content: 'You are a startup simulation expert that provides analysis in JSON format.'
-        },
-        {
-          role: 'user',
-          content: generateSimulationPrompt(validatedInput, 1)
+    // Create a TransformStream for streaming the results
+    const stream = new TransformStream();
+    const writer = stream.writable.getWriter();
+    debugLog('Created stream and writer');
+
+    // Start processing in the background
+    (async () => {
+      try {
+        // Simulate 5 years
+        for (let year = 1; year <= 5; year++) {
+          debugLog(`Starting simulation for year ${year}`);
+          
+          const prompt = generateSimulationPrompt(validatedInput, year);
+          debugLog(`Generated prompt for year ${year}:`, prompt);
+
+          debugLog(`Calling OpenAI API for year ${year}`);
+          const completion = await openai.chat.completions.create({
+            model: process.env.OPENAI_MODEL || 'gpt-4-1106-preview',
+            messages: [
+              {
+                role: 'system',
+                content: 'You are a startup simulation expert that provides analysis in JSON format.'
+              },
+              {
+                role: 'user',
+                content: prompt
+              }
+            ],
+            response_format: { type: 'json_object' }
+          });
+
+          const content = completion.choices[0].message.content;
+          if (!content) {
+            debugLog(`No content received from OpenAI for year ${year}`);
+            throw new Error('No content received from OpenAI');
+          }
+
+          debugLog(`Received OpenAI response for year ${year}:`, content);
+
+          const simulationResult = JSON.parse(content) as SimulationResult;
+          const yearResult: YearlyProgress = {
+            year,
+            ...simulationResult
+          };
+
+          // Stream the year result immediately
+          const yearData = JSON.stringify(yearResult) + '\n---\n';
+          debugLog(`Writing year ${year} data to stream:`, yearData);
+          await writer.write(encoder.encode(yearData));
+          debugLog(`Successfully streamed result for year ${year}`);
+
+          // Small delay between years
+          debugLog(`Waiting before processing year ${year + 1}`);
+          await new Promise(resolve => setTimeout(resolve, 1000));
         }
-      ],
-      response_format: { type: 'json_object' }
+
+        // Signal end of stream
+        debugLog('Sending END marker');
+        await writer.write(encoder.encode('END\n'));
+        debugLog('Closing writer');
+        await writer.close();
+        debugLog('Simulation completed successfully');
+      } catch (error) {
+        debugLog('Error in stream processing:', error);
+        // Try to write error to stream before closing
+        const errorMsg = { error: error instanceof Error ? error.message : 'Unknown error' };
+        debugLog('Writing error to stream:', errorMsg);
+        await writer.write(encoder.encode(JSON.stringify(errorMsg) + '\n'));
+        await writer.close();
+      }
+    })();
+
+    debugLog('Returning stream to client');
+    // Return the readable stream immediately
+    return new Response(stream.readable, {
+      headers: {
+        'Content-Type': 'text/plain',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+      },
     });
 
-    const content = completion.choices[0].message.content;
-    if (!content) {
-      throw new Error('No content received from OpenAI');
-    }
-
-    const simulationResult = JSON.parse(content) as SimulationResult;
-    const response: SimulationResponse = {
-      success: true,
-      yearlyProgress: [{
-        year: 1,
-        ...simulationResult
-      }]
-    };
-
-    return NextResponse.json(response);
-
   } catch (error) {
+    debugLog('Error in POST handler:', error);
+    
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { success: false, error: 'Invalid input data', details: error.errors },
@@ -142,7 +216,6 @@ export async function POST(request: Request) {
       );
     }
 
-    console.error('Simulation API error:', error);
     return NextResponse.json(
       { success: false, error: 'Internal server error' },
       { status: 500 }
