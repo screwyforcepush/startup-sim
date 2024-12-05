@@ -22,30 +22,39 @@ function YearlyResult({ data }: { data: YearlyProgress }) {
         <h3 className="text-xl font-semibold">Year {data.year}</h3>
       </div>
 
-      <div className="space-y-4">
-
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-3">
-          <h4 className="text-sm font-medium text-gray-500">Milestones</h4>
-          <ul className="space-y-2">
-            {data.analysis.milestones.map((milestone: string, index: number) => (
-              <li key={index} className="flex gap-3 text-gray-700">
-                <span className="text-emerald-600">•</span>
-                <span>{milestone}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-emerald-500" />
+            <h4 className="text-sm font-medium text-gray-500">Milestones</h4>
+          </div>
+          <div className="bg-emerald-50 rounded-lg p-4">
+            <ul className="space-y-3">
+              {data.analysis.milestones.map((milestone: string, index: number) => (
+                <li key={index} className="flex gap-3 text-gray-700">
+                  <span className="text-emerald-600 shrink-0">•</span>
+                  <span className="text-sm">{milestone}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div className="space-y-3">
-          <h4 className="text-sm font-medium text-gray-500">Challenges</h4>
-          <ul className="space-y-2">
-            {data.analysis.challenges.map((challenge: string, index: number) => (
-              <li key={index} className="flex gap-3 text-rose-600">
-                <span>•</span>
-                <span>{challenge}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-rose-500" />
+            <h4 className="text-sm font-medium text-gray-500">Challenges</h4>
+          </div>
+          <div className="bg-rose-50 rounded-lg p-4">
+            <ul className="space-y-3">
+              {data.analysis.challenges.map((challenge: string, index: number) => (
+                <li key={index} className="flex gap-3 text-rose-600">
+                  <span className="shrink-0">•</span>
+                  <span className="text-sm">{challenge}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </Card>
