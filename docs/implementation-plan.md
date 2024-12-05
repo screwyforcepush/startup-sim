@@ -121,7 +121,7 @@
 ### **6.1 Create Output Display Component**
 
 - **Action**: In `src/components/output-display/`, create `output-display.tsx`.
-- **Verification**: Render `OutputDisplay` in `results/page.tsx`.
+- **Verification**: Render `OutputDisplay` in `page.tsx`.
   - **Test**: Ensure the component renders without errors.
 
 ### **6.2 Define TypeScript Interfaces for Output Data**
@@ -131,7 +131,7 @@
 
 ### **6.3 Fetch Data from Backend**
 
-- **Action**: In `results/page.tsx`, fetch the simulation results from the API.
+- **Action**: In `page.tsx`, fetch the simulation results from the API.
 - **Verification**: Use `getServerSideProps` or server components to fetch data.
   - **Test**: Ensure the data is fetched and passed to `OutputDisplay`.
 
@@ -161,9 +161,9 @@
 
 ### **8.1 Install Visualization Library**
 
-- **Action**: Install Tremor or Recharts.
+- **Action**: Install Tremor.
   ```bash
-  npm install recharts
+  npm install tremor
   ```
 - **Verification**: Check `package.json` for the new dependency.
 

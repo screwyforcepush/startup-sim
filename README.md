@@ -68,21 +68,30 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │   │   ├── fonts
 │   │   ├── globals.css
 │   │   ├── layout.tsx
-│   │   └── page.tsx
+│   │   └── page.tsx        # Main page with side-by-side input/output
 │   ├── components
 │   │   ├── input-interface  # Simulation input components
 │   │   │   ├── helpers.ts
 │   │   │   ├── input-form.tsx
 │   │   │   └── types.ts
+│   │   ├── output-display   # Simulation results display
+│   │   │   ├── helpers.ts   # Data formatting and calculations
+│   │   │   ├── output-display.tsx
+│   │   │   └── types.ts
 │   │   ├── providers.tsx
-│   │   └── ui
-│   │       └── [ui components]
+│   │   └── ui              # Shadcn UI components
+│   │       ├── button.tsx
+│   │       ├── card.tsx
+│   │       ├── form.tsx
+│   │       ├── select.tsx
+│   │       ├── skeleton.tsx
+│   │       └── [other components]
 │   ├── lib
-│   │   ├── data            # Simulation data and types
+│   │   ├── data           # Simulation data and types
 │   │   │   ├── [json files]
 │   │   │   └── types.ts
 │   │   └── utils.ts
-│   └── store              # Redux state management
+│   └── store             # Redux state management
 │       ├── simulation-slice.ts
 │       └── store.ts
 ├── tailwind.config.ts
@@ -91,18 +100,47 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Features
 
-- Modern React with Server Components
-- Type-safe development with TypeScript
-- Global state management with Redux Toolkit
-- Form validation with Zod and React Hook Form
-- Responsive design with Tailwind CSS
-- Component library built on Shadcn UI and Radix UI primitives
-- AI-powered simulation using OpenAI GPT-4
-- Simulation data management with JSON files
-- Clean and intuitive user interface
-- RESTful API endpoints for simulation processing
-- End-to-end type safety with shared TypeScript interfaces
-- Robust error handling and validation
+- **Modern React Architecture**
+  - Next.js 13 App Router
+  - Server and Client Components
+  - TypeScript for type safety
+  - Redux Toolkit for state management
+
+- **Intuitive User Interface**
+  - Side-by-side input and output display
+  - Real-time form validation
+  - Loading states and error handling
+  - Responsive design with Tailwind CSS
+
+- **Simulation Input**
+  - Sector selection
+  - Nation selection
+  - AI Disruption Pattern
+  - Business Model
+  - Team Archetype
+  - Startup Pitch
+
+- **Simulation Output**
+  - Year-by-year progression
+  - KPI visualization
+  - Revenue tracking
+  - Market share analysis
+  - Milestone tracking
+  - Challenge identification
+  - Strategic recommendations
+
+- **Data Processing**
+  - OpenAI GPT-4 integration
+  - JSON data management
+  - Type-safe data transformation
+  - Error boundary handling
+
+- **Component Library**
+  - Shadcn UI integration
+  - Custom UI components
+  - Form components
+  - Loading skeletons
+  - Progress indicators
 
 ## Development Guidelines
 

@@ -26,6 +26,6 @@ export interface SimulationResponse {
 }
 
 export interface InputFormProps {
-  onSubmit: (data: SimulationResponse) => Promise<void>;
+  onSubmit: (data: SimulationInput) => Promise<void>;
   isLoading?: boolean;
 }
