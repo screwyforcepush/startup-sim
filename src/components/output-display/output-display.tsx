@@ -259,25 +259,25 @@ export function OutputDisplay({ simulationId, simulationData, isLoading, error }
       </div>
 
       <div className="space-y-4">
-        {yearlyResults.map((yearData) => (
+        {yearlyResults.length === 5 && (
+          <Card className="p-6 space-y-4 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/50 dark:to-cyan-950/50">
+            <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 text-transparent bg-clip-text">Strategic Recommendations</h3>
+            <ul className="space-y-3">
+              {yearlyResults[4].analysis.recommendations.map((recommendation, index) => (
+                <li key={index} className="flex gap-3 text-slate-700 dark:text-slate-300">
+                  <span className="text-blue-600 dark:text-blue-400">•</span>
+                  <span>{recommendation}</span>
+                </li>
+              ))}
+            </ul>
+          </Card>
+        )}
+        
+        {[...yearlyResults].reverse().map((yearData) => (
           <YearlyResult key={yearData.year} data={yearData} />
         ))}
-        {(isLoading || isStreaming) && yearlyResults.length < 5 && <LoadingSkeleton />}
+        {(isLoading || isStreaming) && <LoadingSkeleton />}
       </div>
-
-      {yearlyResults.length === 5 && (
-        <Card className="p-6 space-y-4 bg-gray-50">
-          <h3 className="text-xl font-semibold">Strategic Recommendations</h3>
-          <ul className="space-y-3">
-            {yearlyResults[4].analysis.recommendations.map((recommendation, index) => (
-              <li key={index} className="flex gap-3 text-gray-700">
-                <span className="text-blue-600">•</span>
-                <span>{recommendation}</span>
-              </li>
-            ))}
-          </ul>
-        </Card>
-      )}
     </div>
   );
 } 
