@@ -21,7 +21,9 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { SimulationInput, InputFormProps } from './types';
-import { validateSimulationInput, formatSimulationInput } from './helpers';
+import { formatSimulationInput } from './helpers';
+import { useAppDispatch } from '@/store/store';
+import { setSimulationInputs, startSimulation } from '@/store/simulation-slice';
 
 // Import JSON data with types
 import sectors from '@/lib/data/sectors.json';
@@ -53,7 +55,7 @@ const formSchema = z.object({
   startupPitch: z.string().min(10, 'Startup pitch must be at least 10 characters'),
 });
 
-export function InputForm({ onSubmit, isLoading = false }: InputFormProps) {
+export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -66,14 +68,18 @@ export function InputForm({ onSubmit, isLoading = false }: InputFormProps) {
     },
   });
 
-  function onSubmitForm(values: z.infer<typeof formSchema>) {
+  const dispatch = useAppDispatch();
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     const formattedData = formatSimulationInput(values as SimulationInput);
-    onSubmit(formattedData);
+    dispatch(setSimulationInputs(formattedData));
+    dispatch(startSimulation());
+    await propOnSubmit(formattedData);
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmitForm)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
           name="sector"

@@ -5,6 +5,9 @@ A startup simulation tool designed for Saudi government leaders to rapidly evalu
 ## Tech Stack
 
 - **Framework:** [Next.js 15](https://nextjs.org)
+- **State Management:**
+  - [Redux Toolkit](https://redux-toolkit.js.org)
+  - [React Redux](https://react-redux.js.org)
 - **Styling:** 
   - [Tailwind CSS](https://tailwindcss.com)
   - [Tailwind Merge](https://github.com/dcastil/tailwind-merge)
@@ -58,25 +61,21 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │   │   ├── layout.tsx
 │   │   └── page.tsx
 │   ├── components
-│   │   ├── input-interface
+│   ��   ├── input-interface
 │   │   │   ├── helpers.ts
 │   │   │   ├── input-form.tsx
 │   │   │   └── types.ts
+│   │   ├── providers.tsx
 │   │   └── ui
-│   │       ├── button.tsx
-│   │       ├── form.tsx
-│   │       ├── label.tsx
-│   │       ├── select.tsx
-│   │       └── textarea.tsx
-│   └── lib
-│       ├── data
-│       │   ├── business_models.json
-│       │   ├── disruption_patterns.json
-│       │   ├── nations.json
-│       │   ├── sectors.json
-│       │   ├── team_archetypes.json
-│       │   └── types.ts
-│       └── utils.ts
+│   │       └── [ui components]
+│   ├── lib
+│   │   ├── data
+│   │   │   ├── [json files]
+│   │   │   └── types.ts
+│   │   └── utils.ts
+│   └── store
+│       ├── simulation-slice.ts
+│       └── store.ts
 ├── tailwind.config.ts
 └── tsconfig.json
 ```
@@ -85,6 +84,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 - Modern React with Server Components
 - Type-safe development with TypeScript
+- Global state management with Redux Toolkit
 - Form validation with Zod and React Hook Form
 - Responsive design with Tailwind CSS
 - Component library built on Shadcn UI and Radix UI primitives
@@ -96,6 +96,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Use TypeScript for type-safe development
 - Follow the component-first architecture
 - Utilize Server Components where possible
+- Manage global state with Redux Toolkit
 - Style with Tailwind CSS utility classes
 - Use Shadcn UI components for consistent design
 - Implement proper form validation and error handling
