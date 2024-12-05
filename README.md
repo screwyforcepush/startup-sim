@@ -1,6 +1,6 @@
 # Startup Simulator
 
-A modern Next.js application built with TypeScript and enhanced UI components.
+A startup simulation tool designed for Saudi government leaders to rapidly evaluate potential startup ideas in the MENA region. The tool simulates a 5-year trajectory based on key startup parameters, providing quantitative analysis and comparative rankings to inform investment and support decisions.
 
 ## Tech Stack
 
@@ -10,8 +10,12 @@ A modern Next.js application built with TypeScript and enhanced UI components.
   - [Tailwind Merge](https://github.com/dcastil/tailwind-merge)
   - [Class Variance Authority](https://cva.style/docs)
 - **UI Components:**
+  - [Shadcn UI](https://ui.shadcn.com)
   - [Radix UI](https://www.radix-ui.com)
   - [Lucide Icons](https://lucide.dev)
+- **Form Handling:**
+  - [React Hook Form](https://react-hook-form.com)
+  - [Zod](https://zod.dev)
 - **Language:** [TypeScript](https://www.typescriptlang.org)
 
 ## Getting Started
@@ -20,62 +24,93 @@ A modern Next.js application built with TypeScript and enhanced UI components.
 
 ```bash
 npm install
-# or
-yarn install
-# or
-pnpm install
-# or
-bun install
 ```
 
 2. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Project Structure
 
-The project follows a modern Next.js 15 structure with App Router:
-
 ```
-src/
-├── app/          # App router pages and layouts
-├── components/   # Reusable UI components
-├── lib/          # Utility functions and shared logic
-└── styles/       # Global styles and Tailwind configurations
+.
+├── README.md
+├── components.json
+├── docs
+│   ├── change-log.md
+│   ├── implementation-plan.md
+│   ├── requirements.md
+│   └── target-architecture.md
+├── next-env.d.ts
+├── next.config.ts
+├── package.json
+├── postcss.config.mjs
+├── public
+│   └── [assets]
+├── src
+│   ├── app
+│   │   ├── fonts
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components
+│   │   ├── input-interface
+│   │   │   ├── helpers.ts
+│   │   │   ├── input-form.tsx
+│   │   │   └── types.ts
+│   │   └── ui
+│   │       ├── button.tsx
+│   │       ├── form.tsx
+│   │       ├── label.tsx
+│   │       ├── select.tsx
+│   │       └── textarea.tsx
+│   └── lib
+│       ├── data
+│       │   ├── business_models.json
+│       │   ├── disruption_patterns.json
+│       │   ├── nations.json
+│       │   ├── sectors.json
+│       │   ├── team_archetypes.json
+│       │   └── types.ts
+│       └── utils.ts
+├── tailwind.config.ts
+└── tsconfig.json
 ```
 
 ## Features
 
 - Modern React with Server Components
 - Type-safe development with TypeScript
+- Form validation with Zod and React Hook Form
 - Responsive design with Tailwind CSS
-- Component library built on Radix UI primitives
-- Optimized fonts with next/font
-- Modern icon set with Lucide React
+- Component library built on Shadcn UI and Radix UI primitives
+- Simulation data management with JSON files
+- Clean and intuitive user interface
 
-## Development
+## Development Guidelines
 
 - Use TypeScript for type-safe development
 - Follow the component-first architecture
 - Utilize Server Components where possible
 - Style with Tailwind CSS utility classes
+- Use Shadcn UI components for consistent design
+- Implement proper form validation and error handling
+- Follow modern React patterns and best practices
+
+## Documentation
+
+- [Requirements](docs/requirements.md)
+- [Implementation Plan](docs/implementation-plan.md)
+- [Target Architecture](docs/target-architecture.md)
+- [Change Log](docs/change-log.md)
 
 ## Learn More
 
 - [Next.js Documentation](https://nextjs.org/docs)
-- [Radix UI Documentation](https://www.radix-ui.com/docs/primitives/overview/introduction)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-
-## Deployment
-
-Deploy easily using [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme), the platform from the creators of Next.js.
+- [Shadcn UI Documentation](https://ui.shadcn.com)
+- [React Hook Form Documentation](https://react-hook-form.com/docs)
+- [Zod Documentation](https://zod.dev)

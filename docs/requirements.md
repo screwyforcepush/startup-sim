@@ -24,7 +24,7 @@ Required inputs per simulation:
 
 2. **Simulation Engine**
 ```
-Inputs are sent to the backend
+Inputs are sent to the backend. including the object of the sector, nation, disruption pattern, business model, and team archetype.
 backend calls openai API gpt-4o to simulate a year
 repeat 5 times (5 year sim)
 each response is sent to the front end when generated so user can see year by year progress.
