@@ -24,6 +24,7 @@ import { SimulationInput, InputFormProps } from './types';
 import { formatSimulationInput } from './helpers';
 import { useAppDispatch } from '@/store/store';
 import { setSimulationInputs, startSimulation } from '@/store/simulation-slice';
+import { Card } from '@/components/ui/card';
 
 // Import JSON data with types
 import sectors from '@/lib/data/sectors.json';
@@ -195,15 +196,16 @@ export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFo
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <div className="space-y-4">
-          <div className="mb-6">
-            <FormLabel>Load Preset</FormLabel>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <Card className="p-4 bg-slate-50 border-2 border-slate-200">
+          <div className="space-y-2">
+            <FormLabel className="text-lg font-semibold text-slate-800">Load Preset</FormLabel>
+            <p className="text-sm text-slate-600 mb-3">Quick-start your simulation with a pre-configured setup</p>
             <Select
               onValueChange={loadPreset}
             >
               <FormControl>
-                <SelectTrigger>
+                <SelectTrigger className="bg-white">
                   <SelectValue placeholder="Select a preset configuration" />
                 </SelectTrigger>
               </FormControl>
@@ -216,7 +218,9 @@ export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFo
               </SelectContent>
             </Select>
           </div>
+        </Card>
 
+        <div className="space-y-6">
           <FormField
             control={form.control}
             name="sector"
