@@ -1,0 +1,124 @@
+{
+  "businessModels": [
+    {
+      "id": 1,
+      "name": "Subscription",
+      "description": "Customers pay a recurring fee for continuous access to a product or service.",
+      "context": "Description: Customers pay a recurring fee for continuous access to a product or service.\nHistorical Example: Netflix transformed media consumption by offering unlimited streaming content for a monthly fee, replacing traditional rental and purchase models.\nMENA Example: SubsBase emerged as the region's first subscription management platform, raising $2.4 million in seed funding to help regional businesses implement subscription models."
+    },
+    {
+      "id": 2,
+      "name": "Freemium",
+      "description": "Basic features are offered free while premium features require payment, serving as a customer acquisition strategy.",
+      "context": "Description: Basic features are offered free while premium features require payment, serving as a customer acquisition strategy.\nHistorical Example: Dropbox attracted users with free cloud storage, monetizing through paid upgrades for additional space and features.\nMENA Example: Anghami, the region's leading music streaming platform, uses freemium pricing with ad-supported free tier and premium subscriptions."
+    },
+    {
+      "id": 3,
+      "name": "Marketplace",
+      "description": "A platform connecting buyers and sellers, generating revenue through commissions or fees without holding inventory.",
+      "context": "Description: A platform connecting buyers and sellers, generating revenue through commissions or fees without holding inventory.\nHistorical Example: eBay connected buyers and sellers globally, creating a vast online marketplace for goods.\nMENA Example: Noon.com operates as a leading marketplace in the UAE, Saudi Arabia, and Egypt, connecting regional retailers with consumers."
+    },
+    {
+      "id": 4,
+      "name": "Razor and Blades",
+      "description": "Selling a core product at a low price or loss (razors), then generating profits through recurring sales of complementary consumables (blades).",
+      "context": "Description: A strategy where companies sell a core product at a low price or loss (razors), then generate profits through recurring sales of complementary consumables (blades).\nHistorical Example: HP sells printers at low margins but makes significant profits on ink cartridges.\nPopular Example: Nespresso sells its coffee machines at cost while generating significant profits through the recurring sales of proprietary coffee pods."
+    },
+    {
+      "id": 5,
+      "name": "Crowdsourcing",
+      "description": "Leverages collective intelligence by obtaining ideas, services, or content from a large group through online platforms.",
+      "context": "Description: Leverages collective intelligence by obtaining ideas, services, or content from a large group through online platforms.\nHistorical Example: Wikipedia built a vast encyclopedia through user-contributed content.\nMENA Example: Beehive, based in Dubai, uses crowdsourcing for peer-to-peer lending, connecting SMEs with investors."
+    },
+    {
+      "id": 6,
+      "name": "Pay-Per-Use",
+      "description": "Customers only pay for their actual usage of a product or service, with ownership and maintenance remaining with the provider.",
+      "context": "Description: Customers only pay for their actual usage of a product or service, with ownership and maintenance remaining with the provider.\nHistorical Example: Utilities charge customers based on the amount of electricity or water consumed.\nMENA Example: CAFU, UAE's fuel delivery service, charges customers only for the amount of fuel delivered, without subscription fees."
+    },
+    {
+      "id": 7,
+      "name": "Peer-to-Peer",
+      "description": "A platform connecting individuals directly to exchange goods or services, with the business acting as an intermediary.",
+      "context": "Description: A platform connecting individuals directly to exchange goods or services, with the business acting as an intermediary.\nHistorical Example: BitTorrent enabled decentralized file sharing among users without a central server.\nMENA Example: Liwwa, a Jordan-based P2P lending platform connecting SMEs with investors for business financing."
+    },
+    {
+      "id": 8,
+      "name": "On-Demand",
+      "description": "Services or products delivered instantly when requested through digital platforms, focusing on immediate fulfillment.",
+      "context": "Description: Services or products delivered instantly when requested through digital platforms, focusing on immediate fulfillment.\nHistorical Example: Uber provides transportation services on demand via a mobile app.\nMENA Example: Talabat, providing immediate food delivery services across multiple MENA countries."
+    },
+    {
+      "id": 9,
+      "name": "Aggregation",
+      "description": "Combines multiple service providers under a single brand, standardizing offerings and customer experience.",
+      "context": "Description: Combines multiple service providers under a single brand, standardizing offerings and customer experience.\nHistorical Example: Kayak aggregates flight information from various airlines, allowing users to compare and book travel options.\nMENA Example: Careem Super App, aggregating rides, food delivery, and payments under one platform."
+    },
+    {
+      "id": 10,
+      "name": "Open-Source",
+      "description": "Software code is freely available, with revenue generated through support, hosting, or premium features.",
+      "context": "Description: Software code is freely available, with revenue generated through support, hosting, or premium features.\nHistorical Example: Linux, an open-source operating system, thrived through community collaboration and contributions.\nAlternative Example: Bagisto, an open-source e-commerce platform with built-in support for MENA markets."
+    },
+    {
+      "id": 11,
+      "name": "Licensing",
+      "description": "Companies grant rights to intellectual property, trademarks, or technology in exchange for fees or royalties.",
+      "context": "Description: Companies grant rights to intellectual property, trademarks, or technology in exchange for fees or royalties.\nHistorical Example: Microsoft licenses its software to users and businesses, generating revenue from widespread adoption.\nMENA Example: Emirates Airlines licenses its brand for hospitality and entertainment ventures across the region."
+    },
+    {
+      "id": 12,
+      "name": "Data Monetization",
+      "description": "Leveraging user data to generate revenue through targeted advertising or insights.",
+      "context": "Description: Leveraging user data to generate revenue through targeted advertising or insights.\nHistorical Example: Facebook offers free services but monetizes user data through targeted advertising.\nMENA Example: Souq.com (now Amazon.ae) utilizing customer data for personalized shopping experiences."
+    },
+    {
+      "id": 13,
+      "name": "Platform",
+      "description": "Creates value by facilitating exchanges between two or more interdependent groups.",
+      "context": "Description: Creates value by facilitating exchanges between two or more interdependent groups.\nHistorical Example: Apple's App Store allows developers to create apps for its ecosystem, generating revenue for both parties.\nMENA Example: EMPG (Bayut/Dubizzle), connecting property sellers, buyers, and agents across MENA."
+    },
+    {
+      "id": 14,
+      "name": "Network Effects",
+      "description": "The value of a product or service increases as more users join the network.",
+      "context": "Description: The value of a product or service increases as more users join the network.\nHistorical Example: Facebook's value increases as more users join, enhancing connectivity and engagement.\nMENA Example: Property Finder, a MENA real estate platform that connects property seekers, sellers, agents, and mortgage providers."
+    },
+    {
+      "id": 15,
+      "name": "Sharing Economy",
+      "description": "Platforms enabling users to share underutilized assets or services.",
+      "context": "Description: Platforms enabling users to share underutilized assets or services.\nHistorical Example: Airbnb allows property owners to share their homes with travelers, monetizing unused resources.\nMENA Example: ekar, a car-sharing platform in UAE and Saudi Arabia, enabling vehicle sharing among users."
+    },
+    {
+      "id": 16,
+      "name": "Vertical Integration",
+      "description": "Controlling multiple stages of production and distribution across the value chain.",
+      "context": "Description: Controlling multiple stages of production and distribution across the value chain.\nHistorical Example: Tesla controls everything from car manufacturing to battery production and software updates.\nMENA Example: Aramex's end-to-end logistics solutions, controlling the entire delivery chain."
+    },
+    {
+      "id": 17,
+      "name": "Bundling",
+      "description": "Combining multiple products or services into a single package offering.",
+      "context": "Description: Combining multiple products or services into a single package offering.\nHistorical Example: Microsoft Office bundles Word, Excel, and PowerPoint, providing value through a suite of products.\nMENA Example: etisalat by e&'s bundled packages combining mobile, internet, and TV services."
+    },
+    {
+      "id": 18,
+      "name": "White Label",
+      "description": "Products or services produced by one company but rebranded and sold by others.",
+      "context": "Description: Products or services produced by one company but rebranded and sold by others.\nHistorical Example: Generic products are rebranded and sold by different retailers under their own brand names.\nMENA Example: PayTabs, providing white-label payment solutions to businesses across MENA."
+    },
+    {
+      "id": 19,
+      "name": "Franchising",
+      "description": "Business expansion through licensing brand name, processes, and operational methods to independent operators.",
+      "context": "Description: Business expansion through licensing brand name, processes, and operational methods to independent operators.\nHistorical Example: McDonald's expands globally by allowing franchisees to operate under its brand with standardized processes.\nMENA Example: Al Baik, Saudi Arabia's popular fast-food chain, expands across GCC through strategic franchising partnerships."
+    },
+    {
+      "id": 20,
+      "name": "Advertising",
+      "description": "Offering free or subsidized services while generating revenue through advertising space and targeted marketing.",
+      "context": "Description: Offering free or subsidized services while generating revenue through advertising space and targeted marketing.\nHistorical Example: Google provides free search services funded by targeted advertising based on user data.\nMENA Example: Shahid VIP combines free ad-supported content with premium subscriptions across the Arab world."
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "sectors": [{
+      "id": "fb",
+      "name": "Food and Beverage",
+      "type": "current",
+      "fundingShare": 80,
+      "maturityLevel": "established",
+      "characteristics": {
+        "marketSize": "large",
+        "competitionLevel": "high",
+        "regulatoryComplexity": "medium",
+        "techRequirement": "medium"
+      }
+    },
+    {
+      "id": "fin",
+      "name": "Fintech",
+      "type": "current",
+      "fundingShare": 80,
+      "maturityLevel": "growing",
+      "characteristics": {
+        "marketSize": "large",
+        "competitionLevel": "high",
+        "regulatoryComplexity": "high",
+        "techRequirement": "high"
+      }
+    },
+    {
+      "id": "tl",
+      "name": "Transport & Logistics",
+      "type": "current",
+      "fundingShare": 80,
+      "maturityLevel": "established",
+      "characteristics": {
+        "marketSize": "large",
+        "competitionLevel": "medium",
+        "regulatoryComplexity": "medium",
+        "techRequirement": "high"
+      }
+    },
+    {
+      "id": "ec",
+      "name": "E-Commerce",
+      "type": "current",
+      "fundingShare": 80,
+      "maturityLevel": "established",
+      "characteristics": {
+        "marketSize": "large",
+        "competitionLevel": "high",
+        "regulatoryComplexity": "low",
+        "techRequirement": "medium"
+      }
+    },
+    {
+      "id": "ags",
+      "name": "Agtech & Sustainability",
+      "type": "emerging",
+      "fundingShare": 20,
+      "maturityLevel": "early",
+      "characteristics": {
+        "marketSize": "growing",
+        "competitionLevel": "low",
+        "regulatoryComplexity": "medium",
+        "techRequirement": "high"
+      },
+      "subdomains": [
+        "Vertical farming & smart irrigation",
+        "Alternative proteins",
+        "Supply chain optimization"
+      ]
+    },
+    {
+      "id": "cvr",
+      "name": "Cybersecurity & VR/Gaming",
+      "type": "emerging",
+      "fundingShare": 20,
+      "maturityLevel": "early",
+      "characteristics": {
+        "marketSize": "growing",
+        "competitionLevel": "medium",
+        "regulatoryComplexity": "medium",
+        "techRequirement": "very_high"
+      }
+    },
+    {
+      "id": "hw",
+      "name": "Healthcare & Wellness",
+      "type": "emerging",
+      "fundingShare": 20,
+      "maturityLevel": "growing",
+      "characteristics": {
+        "marketSize": "large",
+        "competitionLevel": "medium",
+        "regulatoryComplexity": "very_high",
+        "techRequirement": "high"
+      },
+      "subdomains": [
+        "Digital health platforms",
+        "Biotech research",
+        "Personalized medicine"
+      ]
+    },
+    {
+      "id": "am",
+      "name": "Advanced Manufacturing",
+      "type": "emerging",
+      "fundingShare": 20,
+      "maturityLevel": "early",
+      "characteristics": {
+        "marketSize": "growing",
+        "competitionLevel": "low",
+        "regulatoryComplexity": "high",
+        "techRequirement": "very_high"
+      },
+      "subdomains": [
+        "3D printing hubs",
+        "Industrial robotics",
+        "Smart factory systems"
+      ]
+    }]
+  }
+}

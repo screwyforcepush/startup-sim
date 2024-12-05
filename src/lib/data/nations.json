@@ -1,0 +1,100 @@
+{
+  "nations": [
+    {
+      "id": "qa",
+      "name": "Qatar",
+      "type": "capital_rich",
+      "characteristics": {
+        "gdpPerCapita": "very_high",
+        "marketSize": "small",
+        "regulatoryComplexity": "medium",
+        "techReadiness": "high",
+        "investmentAccess": "very_high"
+      },
+      "investmentFocus": [
+        "sports tech",
+        "sustainability"
+      ]
+    },
+    {
+      "id": "kw",
+      "name": "Kuwait",
+      "type": "capital_rich",
+      "characteristics": {
+        "gdpPerCapita": "very_high",
+        "marketSize": "medium",
+        "regulatoryComplexity": "high",
+        "techReadiness": "medium",
+        "investmentAccess": "very_high"
+      },
+      "investmentFocus": [
+        "tech innovation",
+        "digital infrastructure"
+      ]
+    },
+    {
+      "id": "uae",
+      "name": "United Arab Emirates",
+      "type": "capital_rich",
+      "characteristics": {
+        "gdpPerCapita": "very_high",
+        "marketSize": "medium",
+        "regulatoryComplexity": "medium",
+        "techReadiness": "very_high",
+        "investmentAccess": "very_high"
+      },
+      "investmentFocus": [
+        "tech innovation",
+        "digital infrastructure"
+      ]
+    },
+    {
+      "id": "ksa",
+      "name": "Saudi Arabia",
+      "type": "hybrid",
+      "characteristics": {
+        "gdpPerCapita": "high",
+        "marketSize": "large",
+        "regulatoryComplexity": "high",
+        "techReadiness": "high",
+        "investmentAccess": "very_high"
+      },
+      "investmentFocus": [
+        "regional tech investment",
+        "knowledge economy transition"
+      ]
+    },
+    {
+      "id": "eg",
+      "name": "Egypt",
+      "type": "opportunity_rich",
+      "characteristics": {
+        "gdpPerCapita": "low",
+        "marketSize": "very_large",
+        "regulatoryComplexity": "high",
+        "techReadiness": "medium",
+        "investmentAccess": "medium"
+      },
+      "marketAdvantages": [
+        "large population",
+        "skilled workforce"
+      ]
+    },
+    {
+      "id": "pk",
+      "name": "Pakistan",
+      "type": "opportunity_rich",
+      "characteristics": {
+        "gdpPerCapita": "low",
+        "marketSize": "very_large",
+        "regulatoryComplexity": "high",
+        "techReadiness": "medium",
+        "investmentAccess": "medium"
+      },
+      "marketAdvantages": [
+        "large population",
+        "youthful demographic"
+      ]
+    }
+  ]
+}
