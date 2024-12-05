@@ -63,12 +63,10 @@ function YearlyResult({ data }: { data: YearlyProgress }) {
 
 function LoadingSkeleton() {
   return (
-    <div className="space-y-6">
-      <Skeleton className="h-8 w-64" />
-      <div className="space-y-4">
-        {[1, 2, 3, 4, 5].map((year) => (
-          <Skeleton key={year} className="h-[400px] w-full" />
-        ))}
+    <div className="flex items-center justify-center p-8">
+      <div className="flex items-center gap-3 text-slate-500">
+        <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+        <p className="text-sm">Simulating next year...</p>
       </div>
     </div>
   );
@@ -272,11 +270,11 @@ export function OutputDisplay({ simulationId, simulationData, isLoading, error }
             </ul>
           </Card>
         )}
-        
+        {(isLoading || isStreaming) && <LoadingSkeleton />}
+
         {[...yearlyResults].reverse().map((yearData) => (
           <YearlyResult key={yearData.year} data={yearData} />
         ))}
-        {(isLoading || isStreaming) && <LoadingSkeleton />}
       </div>
     </div>
   );
