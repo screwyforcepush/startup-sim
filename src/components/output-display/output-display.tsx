@@ -3,73 +3,50 @@
 import { useEffect, useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { OutputDisplayProps, YearlyProgress } from "./types";
+import { OutputDisplayProps, YearlyProgress, SimulationMetrics } from "./types";
+
+function getGrowthProbability(metrics: SimulationMetrics): number {
+  return Math.min(metrics.feasibility, metrics.desirability, metrics.viability);
+}
+
+function getGrowthProbabilityColor(probability: number): string {
+  if (probability >= 70) return 'bg-emerald-500';
+  if (probability >= 40) return 'bg-amber-500';
+  return 'bg-rose-500';
+}
 
 function YearlyResult({ data }: { data: YearlyProgress }) {
   return (
-    <Card className="p-4 space-y-4">
-      <h3 className="text-lg font-semibold">Year {data.year}</h3>
-      <div className="grid grid-cols-3 gap-4">
-        <div>
-          <p className="text-sm text-gray-500">Revenue</p>
-          <p className="text-lg font-medium">${data.analysis.revenue.toLocaleString()}</p>
-        </div>
-        <div>
-          <p className="text-sm text-gray-500">Feasibility</p>
-          <p className="text-lg font-medium">{data.metrics.feasibility}%</p>
-        </div>
-        <div>
-          <p className="text-sm text-gray-500">Viability</p>
-          <p className="text-lg font-medium">{data.metrics.viability}%</p>
-        </div>
+    <Card className="p-6 space-y-6 hover:shadow-md transition-shadow">
+      <div className="flex items-center justify-between">
+        <h3 className="text-xl font-semibold">Year {data.year}</h3>
       </div>
-      <div className="space-y-2">
-        <h4 className="font-medium">KPIs</h4>
-        <div className="grid grid-cols-3 gap-4">
-          <div className="space-y-1">
-            <p className="text-sm text-gray-500">Feasibility</p>
-            <div className="h-2 bg-gray-200 rounded">
-              <div 
-                className="h-full bg-blue-500 rounded" 
-                style={{ width: `${data.metrics.feasibility}%` }}
-              />
-            </div>
-          </div>
-          <div className="space-y-1">
-            <p className="text-sm text-gray-500">Desirability</p>
-            <div className="h-2 bg-gray-200 rounded">
-              <div 
-                className="h-full bg-green-500 rounded" 
-                style={{ width: `${data.metrics.desirability}%` }}
-              />
-            </div>
-          </div>
-          <div className="space-y-1">
-            <p className="text-sm text-gray-500">Viability</p>
-            <div className="h-2 bg-gray-200 rounded">
-              <div 
-                className="h-full bg-purple-500 rounded" 
-                style={{ width: `${data.metrics.viability}%` }}
-              />
-            </div>
-          </div>
+
+      <div className="space-y-4">
+
+        <div className="space-y-3">
+          <h4 className="text-sm font-medium text-gray-500">Milestones</h4>
+          <ul className="space-y-2">
+            {data.analysis.milestones.map((milestone: string, index: number) => (
+              <li key={index} className="flex gap-3 text-gray-700">
+                <span className="text-emerald-600">•</span>
+                <span>{milestone}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
-      <div className="space-y-2">
-        <h4 className="font-medium">Milestones</h4>
-        <ul className="list-disc list-inside space-y-1">
-          {data.analysis.milestones.map((milestone: string, index: number) => (
-            <li key={index} className="text-sm">{milestone}</li>
-          ))}
-        </ul>
-      </div>
-      <div className="space-y-2">
-        <h4 className="font-medium">Challenges</h4>
-        <ul className="list-disc list-inside space-y-1">
-          {data.analysis.challenges.map((challenge: string, index: number) => (
-            <li key={index} className="text-sm text-red-600">{challenge}</li>
-          ))}
-        </ul>
+
+        <div className="space-y-3">
+          <h4 className="text-sm font-medium text-gray-500">Challenges</h4>
+          <ul className="space-y-2">
+            {data.analysis.challenges.map((challenge: string, index: number) => (
+              <li key={index} className="flex gap-3 text-rose-600">
+                <span>•</span>
+                <span>{challenge}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </Card>
   );
@@ -77,11 +54,11 @@ function YearlyResult({ data }: { data: YearlyProgress }) {
 
 function LoadingSkeleton() {
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <Skeleton className="h-8 w-64" />
       <div className="space-y-4">
         {[1, 2, 3, 4, 5].map((year) => (
-          <Skeleton key={year} className="h-64 w-full" />
+          <Skeleton key={year} className="h-[400px] w-full" />
         ))}
       </div>
     </div>
@@ -225,13 +202,46 @@ export function OutputDisplay({ simulationId, simulationData, isLoading, error }
   }
 
   return (
-    <div className="space-y-6">
-      <div className="space-y-2">
-        <h2 className="text-2xl font-bold">Simulation Results</h2>
-        <p className="text-gray-600">
-          Years Simulated: {yearlyResults.length}/5
-          {isStreaming && ' (Simulating...)'}
-        </p>
+    <div className="space-y-8">
+      <div className="space-y-6">
+        <h2 className="text-3xl font-bold tracking-tight">Simulation Results</h2>
+        
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-6">
+            <div>
+              <p className="text-sm font-medium text-gray-500 mb-1">Years Simulated</p>
+              <p className="text-2xl font-semibold">
+                {yearlyResults.length}/5
+                {isStreaming && <span className="text-sm font-normal text-gray-500 ml-2">(Simulating...)</span>}
+              </p>
+            </div>
+            
+            {yearlyResults.length > 0 && (
+              <div>
+                <p className="text-sm font-medium text-gray-500 mb-1">Total Revenue</p>
+                <p className="text-2xl font-semibold">
+                  ${yearlyResults.reduce((sum, year) => sum + year.analysis.revenue, 0).toLocaleString()}
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {yearlyResults.length > 0 && (
+          <div className="space-y-3">
+            <p className="text-sm font-medium text-gray-500">Growth Probability</p>
+            <div className="h-3 w-full bg-gray-100 rounded-full overflow-hidden shadow-inner">
+              <div 
+                className={`h-full transition-all duration-500 ${
+                  getGrowthProbabilityColor(getGrowthProbability(yearlyResults[yearlyResults.length - 1].metrics))
+                }`}
+                style={{ 
+                  width: `${getGrowthProbability(yearlyResults[yearlyResults.length - 1].metrics)}%` 
+                }}
+              />
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="space-y-4">
@@ -242,11 +252,14 @@ export function OutputDisplay({ simulationId, simulationData, isLoading, error }
       </div>
 
       {yearlyResults.length === 5 && (
-        <Card className="p-4 space-y-4">
-          <h3 className="text-lg font-semibold">Strategic Recommendations</h3>
-          <ul className="list-disc list-inside space-y-2">
+        <Card className="p-6 space-y-4 bg-gray-50">
+          <h3 className="text-xl font-semibold">Strategic Recommendations</h3>
+          <ul className="space-y-3">
             {yearlyResults[4].analysis.recommendations.map((recommendation, index) => (
-              <li key={index} className="text-sm">{recommendation}</li>
+              <li key={index} className="flex gap-3 text-gray-700">
+                <span className="text-blue-600">•</span>
+                <span>{recommendation}</span>
+              </li>
             ))}
           </ul>
         </Card>
