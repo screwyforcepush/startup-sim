@@ -121,6 +121,10 @@ function debugLog(message: string, data?: unknown) {
   console.log(`[${timestamp}] [Simulation API] ${message}`, data ? JSON.stringify(data, null, 2) : '');
 }
 
+// Add maxDuration export at the top of the file
+export const maxDuration = 60; // 60 seconds for Pro plan
+export const dynamic = 'force-dynamic';
+
 // POST handler for simulation requests
 export async function POST(request: Request) {
   const encoder = new TextEncoder();
