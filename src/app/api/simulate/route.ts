@@ -44,8 +44,9 @@ const openai = new OpenAI({
 });
 
 // Simulation prompt template
-const generateSimulationPrompt = (input: SimulationInput, year: number, previousYearResult?: SimulationResult) => {
-  const basePrompt = `You are a startup simulation expert. Based on the following startup parameters, simulate year ${year} of operations:
+const generateSimulationPrompt = (input: SimulationInput, year: number, previousYearResult?: SimulationResult, trajectory: string = '') => {
+  const basePrompt = `Based on the following startup parameters, simulate the ${trajectory} year ${year} of operations:
+
 
 Sector: ${input.sector}
 Nation: ${input.nation}
@@ -55,10 +56,8 @@ Team Archetype: ${input.teamArchetype}
 Startup Pitch: ${input.startupPitch}`;
 
   const previousYearContext = previousYearResult ? `
-Previous Year Performance:
-- Revenue: ${previousYearResult.analysis.revenue}
-- Key Milestones: ${previousYearResult.analysis.milestones.join(', ')}
-- Challenges: ${previousYearResult.analysis.challenges.join(', ')}` : '';
+Compound the previous year's performance:
+${previousYearResult}` : '';
 
   return `${basePrompt}${previousYearContext}
 
@@ -75,7 +74,7 @@ Also include:
 - Market share percentage
 - Customer base size
 
-Format your response as JSON with the following structure:
+# Format your response as JSON with the following structure:
 {
   "metrics": {
     "feasibility": number,
@@ -90,20 +89,7 @@ Format your response as JSON with the following structure:
     "marketShare": number,
     "customerBase": number
   }
-}
-
-Consider the following for year ${year}:
-${year === 1 ? '- Initial market entry and validation phase' : '- Build upon previous year\'s performance and learnings'}
-- Growth should compound based on previous success
-- Challenges from previous may distrupt a posistive trajectory
-- Early adopter to early majority transition
-- Market dynamics and competition
-- Team capability development
-- Technology adoption curve
-${previousYearResult ? `- Previous year's momentum and challenges
-- Compound growth opportunities from established base
-- Capability disadvantages of team archetype
-- Learning curve advantages from past experience` : ''}`;
+}`;
 };
 
 // Disable body parser size limit for streaming
@@ -150,8 +136,28 @@ export async function POST(request: Request) {
         // Simulate 5 years
         for (let year = 1; year <= 5; year++) {
           debugLog(`Starting simulation for year ${year}`);
-          
-          const prompt = generateSimulationPrompt(validatedInput, year, previousYearResult);
+
+            // Dice roll implementation
+            let persona = 'You are a data-driven startup analyst that carefully evaluates market dynamics and startup potential in the MENA region to generate realistic outcomes.';
+            let trajectory = 'a realistic';
+            if (previousYearResult) {
+                const metrics = previousYearResult.metrics;
+                const minMetric = Math.min(
+                    metrics.feasibility,
+                    metrics.desirability,
+                    metrics.viability
+                );
+                const diceRoll = Math.random() * minMetric;
+                if (diceRoll < 20) {
+                    persona = 'You are a veteran investor who has witnessed the dot-com crash, 2008 crisis, and countless startup failures, and approach each analysis with extreme caution about market challenges.';
+                    trajectory = 'the catastrophic';
+                } else if (diceRoll < 50) {
+                    persona = 'You are a skeptical venture capitalist who has seen many startups fail in the MENA region and scrutinizes every aspect for potential failure points.';
+                    trajectory = 'the negative';
+                }
+            }
+
+          const prompt = generateSimulationPrompt(validatedInput, year, previousYearResult, trajectory);
           debugLog(`Generated prompt for year ${year}:`, prompt);
 
           debugLog(`Calling OpenAI API for year ${year}`);
@@ -160,7 +166,50 @@ export async function POST(request: Request) {
             messages: [
               {
                 role: 'system',
-                content: 'You are a startup simulation expert that provides analysis in JSON format. Consider previous year performance for compounding effects.'
+                content: `${persona} You are skilled at simulating startup trajectory in the MENA region.
+                **You always respond in JSON format.**
+
+# Analysis Instructions
+
+**Regional Market Analysis**
+- Evaluate sector fit for chosen country
+- Consider country type advantages/limitations
+- Assess regulatory environment
+- Analyze timing based on regional development
+
+**Technical Feasibility**
+- Team archetype capabilities vs AI pattern requirements
+- Infrastructure requirements vs country readiness
+- Technical complexity vs team strengths
+- Resource availability in chosen market
+
+**Market Desirability**
+- Cultural fit with region
+- Problem urgency in market
+- Target market size
+- Competition analysis
+- Early adopter accessibility
+
+**Business Viability**
+- Business model fit for region
+- Revenue potential
+- Cost structure requirements
+- Market entry barriers
+- Initial capital needs
+
+**Apply Success Modifiers**
+- Team archetype strengths
+- Regional champion in local market
+- Tech-heavy solution in tech-ready market
+- Strong cultural fit
+
+**Apply Risk Modifiers**
+- Team archetype limitations
+- Market timing misalignment
+- Infrastructure gaps
+- Cultural misfit
+
+**Apply Random Event** (Chaos Factor)`
               },
               {
                 role: 'user',
