@@ -30,3 +30,16 @@
 - Added Provider to root layout
 - Connected input form to Redux store
 - Implemented form submission with Redux actions
+
+### Step 4: Backend API Implementation
+#### 4.1: API Route Setup
+- Created API route structure in `src/app/api/simulate`
+- Implemented POST endpoint with request validation
+- Added error handling for invalid requests
+- Set up mock response structure for testing
+
+#### 4.2: Frontend Integration
+- Updated input form to send data to API endpoint
+- Added API response handling and error management
+- Enhanced TypeScript types for API integration
+- Implemented end-to-end form submission flow

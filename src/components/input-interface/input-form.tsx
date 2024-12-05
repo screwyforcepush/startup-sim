@@ -71,10 +71,30 @@ export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFo
   const dispatch = useAppDispatch();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const formattedData = formatSimulationInput(values as SimulationInput);
-    dispatch(setSimulationInputs(formattedData));
-    dispatch(startSimulation());
-    await propOnSubmit(formattedData);
+    try {
+      const formattedData = formatSimulationInput(values as SimulationInput);
+      dispatch(setSimulationInputs(formattedData));
+      dispatch(startSimulation());
+
+      const response = await fetch('/api/simulate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formattedData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to start simulation');
+      }
+
+      const simulationResponse = await response.json();
+      await propOnSubmit(simulationResponse);
+    } catch (error) {
+      console.error('Simulation error:', error);
+      // TODO: Add error handling UI feedback
+    }
   }
 
   return (

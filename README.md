@@ -43,11 +43,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 .
 ├── README.md
 ├── components.json
-├── docs
-│   ├── change-log.md
-│   ├── implementation-plan.md
-│   ├── requirements.md
-│   └── target-architecture.md
 ├── next-env.d.ts
 ├── next.config.ts
 ├── package.json
@@ -56,12 +51,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │   └── [assets]
 ├── src
 │   ├── app
+│   │   ├── api
+│   │   │   └── simulate     # Simulation API endpoints
 │   │   ├── fonts
 │   │   ├── globals.css
 │   │   ├── layout.tsx
 │   │   └── page.tsx
 │   ├── components
-│   ��   ├── input-interface
+│   │   ├── input-interface  # Simulation input components
 │   │   │   ├── helpers.ts
 │   │   │   ├── input-form.tsx
 │   │   │   └── types.ts
@@ -69,11 +66,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │   │   └── ui
 │   │       └── [ui components]
 │   ├── lib
-│   │   ├── data
+│   │   ├── data            # Simulation data and types
 │   │   │   ├── [json files]
 │   │   │   └── types.ts
 │   │   └── utils.ts
-│   └── store
+│   └── store              # Redux state management
 │       ├── simulation-slice.ts
 │       └── store.ts
 ├── tailwind.config.ts
@@ -90,6 +87,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Component library built on Shadcn UI and Radix UI primitives
 - Simulation data management with JSON files
 - Clean and intuitive user interface
+- RESTful API endpoints for simulation processing
+- End-to-end type safety with shared TypeScript interfaces
+- Robust error handling and validation
 
 ## Development Guidelines
 
