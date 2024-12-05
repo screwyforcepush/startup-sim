@@ -49,15 +49,23 @@ const openai = new OpenAI({
 });
 
 // Simulation prompt template
-const generateSimulationPrompt = (input: SimulationInput, year: number) => {
-  return `You are a startup simulation expert. Based on the following startup parameters, simulate year ${year} of operations:
+const generateSimulationPrompt = (input: SimulationInput, year: number, previousYearResult?: SimulationResult) => {
+  const basePrompt = `You are a startup simulation expert. Based on the following startup parameters, simulate year ${year} of operations:
 
 Sector: ${input.sector}
 Nation: ${input.nation}
 AI Disruption Pattern: ${input.aiDisruptionPattern}
 Business Model: ${input.businessModel}
 Team Archetype: ${input.teamArchetype}
-Startup Pitch: ${input.startupPitch}
+Startup Pitch: ${input.startupPitch}`;
+
+  const previousYearContext = previousYearResult ? `
+Previous Year Performance:
+- Revenue: ${previousYearResult.analysis.revenue}
+- Key Milestones: ${previousYearResult.analysis.milestones.join(', ')}
+- Challenges: ${previousYearResult.analysis.challenges.join(', ')}` : '';
+
+  return `${basePrompt}${previousYearContext}
 
 Provide a detailed analysis with the following metrics (scored 0-100):
 1. Feasibility (team & technical capability match)
@@ -90,11 +98,17 @@ Format your response as JSON with the following structure:
 }
 
 Consider the following for year ${year}:
+${year === 1 ? '- Initial market entry and validation phase' : '- Build upon previous year\'s performance and learnings'}
 - Growth should compound based on previous success
+- Challenges from previous may distrupt a posistive trajectory
 - Early adopter to early majority transition
 - Market dynamics and competition
 - Team capability development
-- Technology adoption curve`;
+- Technology adoption curve
+${previousYearResult ? `- Previous year's momentum and challenges
+- Compound growth opportunities from established base
+- Capability disadvantages of team archetype
+- Learning curve advantages from past experience` : ''}`;
 };
 
 // Disable body parser size limit for streaming
@@ -132,11 +146,13 @@ export async function POST(request: Request) {
     // Start processing in the background
     (async () => {
       try {
+        let previousYearResult: SimulationResult | undefined;
+
         // Simulate 5 years
         for (let year = 1; year <= 5; year++) {
           debugLog(`Starting simulation for year ${year}`);
           
-          const prompt = generateSimulationPrompt(validatedInput, year);
+          const prompt = generateSimulationPrompt(validatedInput, year, previousYearResult);
           debugLog(`Generated prompt for year ${year}:`, prompt);
 
           debugLog(`Calling OpenAI API for year ${year}`);
@@ -145,7 +161,7 @@ export async function POST(request: Request) {
             messages: [
               {
                 role: 'system',
-                content: 'You are a startup simulation expert that provides analysis in JSON format.'
+                content: 'You are a startup simulation expert that provides analysis in JSON format. Consider previous year performance for compounding effects.'
               },
               {
                 role: 'user',
@@ -175,9 +191,14 @@ export async function POST(request: Request) {
           await writer.write(encoder.encode(yearData));
           debugLog(`Successfully streamed result for year ${year}`);
 
+          // Store the result for next year's context
+          previousYearResult = simulationResult;
+
           // Small delay between years
-          debugLog(`Waiting before processing year ${year + 1}`);
-          await new Promise(resolve => setTimeout(resolve, 1000));
+          if (year < 5) {
+            debugLog(`Waiting before processing year ${year + 1}`);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
         }
 
         // Signal end of stream
