@@ -17,22 +17,22 @@ function getGrowthProbabilityColor(probability: number): string {
 
 function YearlyResult({ data }: { data: YearlyProgress }) {
   return (
-    <Card className="p-6 space-y-6 hover:shadow-md transition-shadow">
+    <Card className="p-6 space-y-6 hover:shadow-lg transition-all duration-300 border border-slate-200 dark:border-slate-800">
       <div className="flex items-center justify-between">
-        <h3 className="text-xl font-semibold">Year {data.year}</h3>
+        <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 text-transparent bg-clip-text">Year {data.year}</h3>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-3">
           <div className="flex items-center gap-2">
             <div className="h-2 w-2 rounded-full bg-emerald-500" />
-            <h4 className="text-sm font-medium text-gray-500">Milestones</h4>
+            <h4 className="text-sm font-medium text-slate-600 dark:text-slate-400">Milestones</h4>
           </div>
-          <div className="bg-emerald-50 rounded-lg p-4">
+          <div className="bg-emerald-50/50 dark:bg-emerald-950/10 rounded-xl p-4 border border-emerald-100 dark:border-emerald-900">
             <ul className="space-y-3">
               {data.analysis.milestones.map((milestone: string, index: number) => (
-                <li key={index} className="flex gap-3 text-gray-700">
-                  <span className="text-emerald-600 shrink-0">•</span>
+                <li key={index} className="flex gap-3 text-slate-700 dark:text-slate-300">
+                  <span className="text-emerald-600 dark:text-emerald-400 shrink-0">•</span>
                   <span className="text-sm">{milestone}</span>
                 </li>
               ))}
@@ -43,13 +43,13 @@ function YearlyResult({ data }: { data: YearlyProgress }) {
         <div className="space-y-3">
           <div className="flex items-center gap-2">
             <div className="h-2 w-2 rounded-full bg-rose-500" />
-            <h4 className="text-sm font-medium text-gray-500">Challenges</h4>
+            <h4 className="text-sm font-medium text-slate-600 dark:text-slate-400">Challenges</h4>
           </div>
-          <div className="bg-rose-50 rounded-lg p-4">
+          <div className="bg-rose-50/50 dark:bg-rose-950/10 rounded-xl p-4 border border-rose-100 dark:border-rose-900">
             <ul className="space-y-3">
               {data.analysis.challenges.map((challenge: string, index: number) => (
-                <li key={index} className="flex gap-3 text-rose-600">
-                  <span className="shrink-0">•</span>
+                <li key={index} className="flex gap-3 text-slate-700 dark:text-slate-300">
+                  <span className="text-rose-600 dark:text-rose-400 shrink-0">•</span>
                   <span className="text-sm">{challenge}</span>
                 </li>
               ))}
@@ -213,21 +213,26 @@ export function OutputDisplay({ simulationId, simulationData, isLoading, error }
   return (
     <div className="space-y-8">
       <div className="space-y-6">
-        <h2 className="text-3xl font-bold tracking-tight">Simulation Results</h2>
+        <h2 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-cyan-600 text-transparent bg-clip-text">Simulation Results</h2>
         
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-6">
-            <div>
-              <p className="text-sm font-medium text-gray-500 mb-1">Years Simulated</p>
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="grid grid-cols-2 gap-6 sm:flex sm:items-center">
+            <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+              <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-1">Years Simulated</p>
               <p className="text-2xl font-semibold">
                 {yearlyResults.length}/5
-                {isStreaming && <span className="text-sm font-normal text-gray-500 ml-2">(Simulating...)</span>}
+                {isStreaming && (
+                  <span className="text-sm font-normal text-slate-500 dark:text-slate-400 ml-2 inline-flex items-center">
+                    <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse mr-2" />
+                    Simulating...
+                  </span>
+                )}
               </p>
             </div>
             
             {yearlyResults.length > 0 && (
-              <div>
-                <p className="text-sm font-medium text-gray-500 mb-1">Total Revenue</p>
+              <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-1">Total Revenue</p>
                 <p className="text-2xl font-semibold">
                   ${yearlyResults.reduce((sum, year) => sum + year.analysis.revenue, 0).toLocaleString()}
                 </p>
@@ -237,11 +242,11 @@ export function OutputDisplay({ simulationId, simulationData, isLoading, error }
         </div>
 
         {yearlyResults.length > 0 && (
-          <div className="space-y-3">
-            <p className="text-sm font-medium text-gray-500">Growth Probability</p>
-            <div className="h-3 w-full bg-gray-100 rounded-full overflow-hidden shadow-inner">
+          <div className="space-y-3 bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+            <p className="text-sm font-medium text-slate-600 dark:text-slate-400">Growth Probability</p>
+            <div className="h-3 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden shadow-inner">
               <div 
-                className={`h-full transition-all duration-500 ${
+                className={`h-full transition-all duration-1000 ease-out ${
                   getGrowthProbabilityColor(getGrowthProbability(yearlyResults[yearlyResults.length - 1].metrics))
                 }`}
                 style={{ 

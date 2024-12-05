@@ -86,151 +86,164 @@ export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFo
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-          control={form.control}
-          name="sector"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Sector</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+        <div className="space-y-4">
+          <FormField
+            control={form.control}
+            name="sector"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Sector</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a sector" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {sectorsData.sectors.map((sector) => (
+                      <SelectItem key={sector.id} value={sector.id}>
+                        {sector.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="nation"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Nation</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a nation" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {nationsData.nations.map((nation) => (
+                      <SelectItem key={nation.id} value={nation.id}>
+                        {nation.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="aiDisruptionPattern"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>AI Disruption Pattern</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a disruption pattern" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {disruptionsData.aiDisruptionPatterns.map((pattern) => (
+                      <SelectItem key={pattern.id} value={pattern.id.toString()}>
+                        {pattern.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="businessModel"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Business Model</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a business model" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {businessModelsData.businessModels.map((model) => (
+                      <SelectItem key={model.id} value={model.id.toString()}>
+                        {model.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="teamArchetype"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Team Archetype</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a team archetype" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {teamArchetypesData.startupTeamArchetypes.map((archetype) => (
+                      <SelectItem key={archetype.id} value={archetype.id.toString()}>
+                        {archetype.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="startupPitch"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Startup Pitch</FormLabel>
                 <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a sector" />
-                  </SelectTrigger>
+                  <Textarea
+                    placeholder="Describe your startup idea..."
+                    className="min-h-[100px]"
+                    {...field}
+                  />
                 </FormControl>
-                <SelectContent>
-                  {sectorsData.sectors.map((sector) => (
-                    <SelectItem key={sector.id} value={sector.id}>
-                      {sector.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
-        <FormField
-          control={form.control}
-          name="nation"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Nation</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a nation" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {nationsData.nations.map((nation) => (
-                    <SelectItem key={nation.id} value={nation.id}>
-                      {nation.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
+        <Button 
+          type="submit" 
+          disabled={isLoading}
+          className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white shadow-lg"
+        >
+          {isLoading ? (
+            <div className="flex items-center justify-center gap-2">
+              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              <span>Simulating...</span>
+            </div>
+          ) : (
+            'Run Simulation'
           )}
-        />
-
-        <FormField
-          control={form.control}
-          name="aiDisruptionPattern"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>AI Disruption Pattern</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a disruption pattern" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {disruptionsData.aiDisruptionPatterns.map((pattern) => (
-                    <SelectItem key={pattern.id} value={pattern.id.toString()}>
-                      {pattern.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="businessModel"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Business Model</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a business model" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {businessModelsData.businessModels.map((model) => (
-                    <SelectItem key={model.id} value={model.id.toString()}>
-                      {model.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="teamArchetype"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Team Archetype</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a team archetype" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {teamArchetypesData.startupTeamArchetypes.map((archetype) => (
-                    <SelectItem key={archetype.id} value={archetype.id.toString()}>
-                      {archetype.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="startupPitch"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Startup Pitch</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Describe your startup idea..."
-                  className="min-h-[100px]"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Button type="submit" disabled={isLoading}>
-          {isLoading ? 'Simulating...' : 'Run Simulation'}
         </Button>
       </form>
     </Form>

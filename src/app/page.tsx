@@ -26,19 +26,24 @@ export default function Home() {
   }
 
   return (
-    <main className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8">Startup Simulator</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="w-full">
-          <InputForm onSubmit={handleSimulationSubmit} isLoading={isLoading} />
+    <main className="container mx-auto px-4 py-12">
+      <h1 className="text-4xl font-bold mb-2 text-center bg-gradient-to-r from-blue-600 to-cyan-600 text-transparent bg-clip-text">Startup Simulator</h1>
+      <p className="text-slate-600 dark:text-slate-400 text-center mb-12">Simulate and evaluate startup ideas in the MENA region</p>
+      <div className="grid grid-cols-12 gap-8">
+        <div className="col-span-12 lg:col-span-5">
+          <div className="bg-white dark:bg-slate-900 rounded-xl shadow-lg p-6">
+            <InputForm onSubmit={handleSimulationSubmit} isLoading={isLoading} />
+          </div>
         </div>
-        <div className="w-full">
-          <OutputDisplay 
-            simulationId={simulationData?.id ?? ''}
-            simulationData={simulationData?.data}
-            isLoading={isLoading}
-            error={error}
-          />
+        <div className="col-span-12 lg:col-span-7">
+          <div className="bg-white dark:bg-slate-900 rounded-xl shadow-lg p-6">
+            <OutputDisplay 
+              simulationId={simulationData?.id ?? ''}
+              simulationData={simulationData?.data}
+              isLoading={isLoading}
+              error={error}
+            />
+          </div>
         </div>
       </div>
     </main>
