@@ -31,6 +31,7 @@ import nations from '@/lib/data/nations.json';
 import disruptions from '@/lib/data/disruption_patterns.json';
 import businessModels from '@/lib/data/business_models.json';
 import teamArchetypes from '@/lib/data/team_archetypes.json';
+import presets from '@/lib/data/presets.json';
 import type {
   SectorsData,
   NationsData,
@@ -105,6 +106,80 @@ export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFo
 
   const dispatch = useAppDispatch();
 
+  const loadPreset = (presetId: string) => {
+    const preset = presets.presets.find(p => p.id === presetId);
+    if (!preset) return;
+
+    console.log('Loading preset:', preset);
+
+    // Find the corresponding objects from their respective data sources
+    const sector = sectorsData.sectors.find(s => 
+      s.name.toLowerCase() === preset.input.sector.toLowerCase()
+    );
+    console.log('Matching sector:', sector, 'for input:', preset.input.sector);
+
+    const nation = nationsData.nations.find(n => 
+      n.name.toLowerCase() === preset.input.nation.toLowerCase()
+    );
+    console.log('Matching nation:', nation, 'for input:', preset.input.nation);
+
+    const pattern = disruptionsData.aiDisruptionPatterns.find(p => 
+      p.name.toLowerCase() === preset.input.aiDisruptionPattern.toLowerCase()
+    );
+    console.log('Matching pattern:', pattern, 'for input:', preset.input.aiDisruptionPattern);
+
+    const model = businessModelsData.businessModels.find(m => 
+      m.name.toLowerCase().replace('&', 'and') === preset.input.businessModel.toLowerCase().replace('&', 'and')
+    );
+    console.log('Matching model:', model, 'for input:', preset.input.businessModel);
+
+    // More flexible matching for team archetype
+    const archetype = teamArchetypesData.startupTeamArchetypes.find(a => 
+      a.name.toLowerCase().includes(preset.input.teamArchetype.toLowerCase()) ||
+      preset.input.teamArchetype.toLowerCase().includes(a.name.toLowerCase().replace('the ', '').replace(' team', ''))
+    );
+    console.log('Matching archetype:', archetype, 'for input:', preset.input.teamArchetype);
+
+    // Update form values with null checks
+    if (sector) {
+      console.log('Setting sector:', JSON.stringify(sector));
+      form.setValue('sector', JSON.stringify(sector), { shouldValidate: true });
+    } else {
+      console.warn('Could not find matching sector');
+    }
+
+    if (nation) {
+      console.log('Setting nation:', JSON.stringify(nation));
+      form.setValue('nation', JSON.stringify(nation), { shouldValidate: true });
+    } else {
+      console.warn('Could not find matching nation');
+    }
+
+    if (pattern) {
+      console.log('Setting pattern:', JSON.stringify(pattern));
+      form.setValue('aiDisruptionPattern', JSON.stringify(pattern), { shouldValidate: true });
+    } else {
+      console.warn('Could not find matching AI disruption pattern');
+    }
+
+    if (model) {
+      console.log('Setting model:', JSON.stringify(model));
+      form.setValue('businessModel', JSON.stringify(model), { shouldValidate: true });
+    } else {
+      console.warn('Could not find matching business model');
+    }
+
+    if (archetype) {
+      console.log('Setting archetype:', JSON.stringify(archetype));
+      form.setValue('teamArchetype', JSON.stringify(archetype), { shouldValidate: true });
+    } else {
+      console.warn('Could not find matching team archetype');
+    }
+
+    // Always set the pitch since it doesn't need matching
+    form.setValue('startupPitch', preset.input.startupPitch, { shouldValidate: true });
+  };
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const formattedData = formatSimulationInput(values as SimulationInput);
@@ -122,6 +197,26 @@ export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFo
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <div className="space-y-4">
+          <div className="mb-6">
+            <FormLabel>Load Preset</FormLabel>
+            <Select
+              onValueChange={loadPreset}
+            >
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a preset configuration" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                {presets.presets.map((preset) => (
+                  <SelectItem key={preset.id} value={preset.id}>
+                    {preset.name} - {preset.description}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
           <FormField
             control={form.control}
             name="sector"
@@ -129,13 +224,13 @@ export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFo
               <FormItem>
                 <FormLabel>Sector</FormLabel>
                 <Select 
+                  value={field.value ? JSON.parse(field.value).id : ''}
                   onValueChange={(value) => {
                     const selectedSector = sectorsData.sectors.find(s => s.id === value);
                     if (selectedSector) {
                       field.onChange(JSON.stringify(selectedSector));
                     }
-                  }} 
-                  defaultValue={field.value}
+                  }}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -162,13 +257,13 @@ export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFo
               <FormItem>
                 <FormLabel>Nation</FormLabel>
                 <Select 
+                  value={field.value ? JSON.parse(field.value).id : ''}
                   onValueChange={(value) => {
                     const selectedNation = nationsData.nations.find(n => n.id === value);
                     if (selectedNation) {
                       field.onChange(JSON.stringify(selectedNation));
                     }
-                  }} 
-                  defaultValue={field.value}
+                  }}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -195,13 +290,13 @@ export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFo
               <FormItem>
                 <FormLabel>AI Disruption Pattern</FormLabel>
                 <Select 
+                  value={field.value ? JSON.parse(field.value).id.toString() : ''}
                   onValueChange={(value) => {
                     const selectedPattern = disruptionsData.aiDisruptionPatterns.find(p => p.id.toString() === value);
                     if (selectedPattern) {
                       field.onChange(JSON.stringify(selectedPattern));
                     }
-                  }} 
-                  defaultValue={field.value}
+                  }}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -228,13 +323,13 @@ export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFo
               <FormItem>
                 <FormLabel>Business Model</FormLabel>
                 <Select 
+                  value={field.value ? JSON.parse(field.value).id.toString() : ''}
                   onValueChange={(value) => {
                     const selectedModel = businessModelsData.businessModels.find(m => m.id.toString() === value);
                     if (selectedModel) {
                       field.onChange(JSON.stringify(selectedModel));
                     }
-                  }} 
-                  defaultValue={field.value}
+                  }}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -261,13 +356,13 @@ export function InputForm({ onSubmit: propOnSubmit, isLoading = false }: InputFo
               <FormItem>
                 <FormLabel>Team Archetype</FormLabel>
                 <Select 
+                  value={field.value ? JSON.parse(field.value).id.toString() : ''}
                   onValueChange={(value) => {
                     const selectedArchetype = teamArchetypesData.startupTeamArchetypes.find(a => a.id.toString() === value);
                     if (selectedArchetype) {
                       field.onChange(JSON.stringify(selectedArchetype));
                     }
-                  }} 
-                  defaultValue={field.value}
+                  }}
                 >
                   <FormControl>
                     <SelectTrigger>

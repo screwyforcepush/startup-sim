@@ -1,0 +1,69 @@
+{
+  "presets": [
+    {
+      "id": "the-package",
+      "name": "The Package",
+      "description": "B2B AI extension tool for logistics process optimization",
+      "input": {
+        "sector": "Transport & Logistics",
+        "nation": "KSA",
+        "aiDisruptionPattern": "Potentiality Mapping",
+        "businessModel": "Vertical Integration",
+        "teamArchetype": "Operational Excellence",
+        "startupPitch": "We have the sector, we have selected the transport and logistics, and the nation is going to be in KSA. The disruption pattern is potentiality mapping, and then the business model is vertical integration, and the team archetype is operational excellence, and now, just to give you an idea of the concept, it's an AI extension tool meant to oversee the whole logistics processes and to optimize the process and give solutions for future on how to optimize that process. For example, back in Saudi, they used to ask me, like, where's the location of the house? And it might take one to two days, so it's a bit vague, although the DHL and FedEx are really good, but not as much as good as it should be. So that tool is going to be overseeing the whole process from the origin until the shipment is in your door. So it's meant to be meant for business-to-business, for the logistics companies, the fact that those companies could be extended to see multiple companies in the future, not only logistics, and could be applied as an extension of different kind of processes. And it's aligned as well with the Vision 2030, which is the goals in logistics transformation. The name of our startup is The package."
+      }
+    },
+    {
+      "id": "covest",
+      "name": "Covest",
+      "description": "Open-source investment fund with AI-driven decision making",
+      "input": {
+        "sector": "FinTech",
+        "nation": "Qatar",
+        "aiDisruptionPattern": "Ecosystem Preservation",
+        "businessModel": "Open-Source",
+        "teamArchetype": "Ecosystem Builder",
+        "startupPitch": "We're going to create a company called Covest. It's a FinTech company. The disruption pattern is ecosystem preservation, business model is open source, the team archetype is the ecosystem builder, and the idea is that we're going to start a fund that's investing in securities using open source community to create, to feed the system with investment techniques and securities analysis tools, and the system will invest in securities using AI and applying these techniques and tools. All right. And what was the name again? Covest."
+      }
+    },
+    {
+      "id": "agri-roof",
+      "name": "Agri-Roof",
+      "description": "Vertical farming equipment provider with full-service consulting",
+      "input": {
+        "sector": "Agtech & Sustainability",
+        "nation": "KSA",
+        "aiDisruptionPattern": "Energy Intelligence",
+        "businessModel": "Razor & Blades",
+        "teamArchetype": "Regional Champion",
+        "startupPitch": "The company name is Agri-Roof, we call it Agri-Roof. The sector is agriculture and sustainability. The nation is Saudi Arabia, hybrid nation. The disruption pattern is energy optimization. The business model is razor and blades. The team archetype is regional champion. The start-up idea is basically it's a vertical farming company. So we're going to sell the equipments for the clients with full solution, consulting all the manuals and all the something, any the plants needs we can offer it for the customers. We are going to try also that our equipments has different design from the other competitors as well. We're going to give a warranty for longer time. So I think it's a very interesting industry and for example the nation, Saudi Arabia of course need to invest more in this, especially now we have an issue with the water. And I think this kind of idea going to really help the agriculture sector in Saudi Arabia plus we're going to meet the expectation of the vision 2030."
+      }
+    },
+    {
+      "id": "star-gym",
+      "name": "Star Gym",
+      "description": "Luxury AI-powered gym focused on female market in KSA",
+      "input": {
+        "sector": "Healthcare & Wellness",
+        "nation": "KSA",
+        "aiDisruptionPattern": "Possibility Expansion",
+        "businessModel": "Razor and Blades",
+        "teamArchetype": "Experience Designer",
+        "startupPitch": "So our company name is Star Gym. Star Gym. The idea is whoever comes to our gym will be a star mentally and physically. Our sector, obviously, is the wellness and health. The nation is KSA because after a quick discussion, we've noticed that the marketing in Saudi Arabia regarding gyms, especially for ladies, has a lot of opportunities, and this is why we are focused about the female. The disruption pattern is the possibility expansion. Business model is Razor and Blade. Team archetype is the experience designer. And startup idea is the gym. So the idea of our gym will be we will have a luxury gym with reasonable monthly fees. However, we will generate profit out of the other products and services within our gym. We will offer some clothes, salon services, massages, and specific kinds of gym exercises, workshops, like some famous trainer coming to our gym, et cetera. We will be using AI. We will have a machine that will take a picture of you and give you what are the exercises that you need."
+      }
+    },
+    {
+      "id": "fzl-and-jr",
+      "name": "FZL&JR",
+      "description": "Logistics franchising operation partnering with global companies",
+      "input": {
+        "sector": "Transport & Logistics",
+        "nation": "KSA",
+        "aiDisruptionPattern": "Dynamic Personalization",
+        "businessModel": "Franchising",
+        "teamArchetype": "Regional Champion",
+        "startupPitch": "We will create a company called FZL&JR. It came from Fleet Zone Logistics and Jet Route. Okay. That's the initials of our first names. Oh, nice. Yeah. Oh, very cool. Okay. So FZL&JR Logistics in KSA will leverage Dynamic personalization, and the model of our business will be franchising. Our startup team archetype is regional champion, and we are thinking to make franchising with big companies worldwide to be in Saudi because we have to align with Vision Saudi 2030 to make Saudi Arabia as a global logistic hub. So, and we'll buy The Package."
+      }
+    }
+  ]
+}
