@@ -56,12 +56,12 @@ Team Archetype: ${input.teamArchetype}
 Startup Pitch: ${input.startupPitch}`;
 
   const previousYearContext = previousYearResult ? `
-Compound the previous year's performance:
+Previous year's performance:
 ${previousYearResult}` : '';
 
   return `${basePrompt}${previousYearContext}
 
-Provide a detailed analysis with the following metrics (scored 0-100):
+Given the startup's ${trajectory} trajectory, provide a detailed analysis with the following metrics (scored 0-100):
 1. Feasibility (team & technical capability match)
 2. Desirability (market fit and adoption potential)
 3. Viability (business model sustainability)
@@ -139,7 +139,7 @@ export async function POST(request: Request) {
 
             // Dice roll implementation
             let persona = 'You are a data-driven startup analyst that carefully evaluates market dynamics and startup potential in the MENA region to generate realistic outcomes.';
-            let trajectory = 'a realistic';
+            let trajectory = 'realistic';
             if (previousYearResult) {
                 const metrics = previousYearResult.metrics;
                 const minMetric = Math.min(
@@ -150,10 +150,10 @@ export async function POST(request: Request) {
                 const diceRoll = Math.random() * minMetric;
                 if (diceRoll < 20) {
                     persona = 'You are a veteran investor who has witnessed the dot-com crash, 2008 crisis, and countless startup failures, and approach each analysis with extreme caution about market challenges.';
-                    trajectory = 'the catastrophic';
+                    trajectory = 'fatal';
                 } else if (diceRoll < 50) {
                     persona = 'You are a skeptical venture capitalist who has seen many startups fail in the MENA region and scrutinizes every aspect for potential failure points.';
-                    trajectory = 'the negative';
+                    trajectory = 'catastrophic';
                 }
             }
 

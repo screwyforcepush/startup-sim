@@ -228,12 +228,28 @@ export function OutputDisplay({ simulationId, simulationData, isLoading, error }
             </div>
             
             {yearlyResults.length > 0 && (
-              <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-1">Total Revenue</p>
-                <p className="text-2xl font-semibold">
-                  ${yearlyResults.reduce((sum, year) => sum + year.analysis.revenue, 0).toLocaleString()}
-                </p>
-              </div>
+              <>
+                <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-1">Total Revenue</p>
+                  <p className="text-2xl font-semibold">
+                    ${yearlyResults.reduce((sum, year) => sum + year.analysis.revenue, 0).toLocaleString()}
+                  </p>
+                </div>
+                
+                <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-1">Customer Base</p>
+                  <p className="text-2xl font-semibold">
+                    {yearlyResults[yearlyResults.length - 1].analysis.customerBase.toLocaleString()}
+                  </p>
+                </div>
+
+                <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-1">Market Share</p>
+                  <p className="text-2xl font-semibold">
+                    {yearlyResults[yearlyResults.length - 1].analysis.marketShare.toFixed(1)}%
+                  </p>
+                </div>
+              </>
             )}
           </div>
         </div>
